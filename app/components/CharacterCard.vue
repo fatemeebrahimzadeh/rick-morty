@@ -8,19 +8,32 @@ defineProps<{
 
 <template>
   <article
-    class="h-full overflow-hidden rounded-2xl border border-gray-200 bg-white shadow-sm dark:border-gray-700 dark:bg-gray-900"
+    class="w-[328px] md:w-[384px] p-4 flex flex-col overflow-hidden rounded-2xl gap-4 border border-gcharcoal"
   >
     <img
       :src="character.image"
       :alt="character.name"
-      class="h-40 w-full object-cover"
+      class="w-full rounded-lg object-cover"
       loading="lazy"
     />
-    <div class="space-y-1 p-3">
-      <p class="line-clamp-1 font-semibold">{{ character.name }}</p>
-      <p v-if="character.status || character.species" class="line-clamp-1 text-sm text-gray-500">
-        {{ character.status }}<span v-if="character.status && character.species"> • </span
-        >{{ character.species }}
+    <div class="space-y-1 p-3 text-white">
+      <p class="line-clamp-1 font-bold">{{ character.name }}</p>
+      <p
+        v-if="character.status || character.species"
+        class="flex items-center gap-2 text-sm"
+      >
+        <span
+          class="inline-block h-2 w-2 rounded-full"
+          :class="{
+            'bg-red-500': character.status?.toLowerCase() === 'dead',
+            'bg-emerald-500': character.status?.toLowerCase() === 'alive',
+            'bg-slate-400': character.status?.toLowerCase() !== 'dead' && character.status?.toLowerCase() !== 'alive',
+          }"
+        />
+        <span class="truncate">
+          {{ character.status }}<span v-if="character.status && character.species"> - </span
+          >{{ character.species }}
+        </span>
       </p>
     </div>
   </article>

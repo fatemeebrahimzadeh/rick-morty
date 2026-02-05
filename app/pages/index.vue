@@ -24,19 +24,18 @@ const { page, search, characters, pagesCount, pending, error, next, prev, search
       </div>
     </template>
 
-    <section class="mx-auto max-w-5xl p-4 md:p-8">
+    <section class="mx-auto py-8 md:px-[120px] md:py-16 md:p-8">
       <div v-if="pending" class="py-10 text-center">Loading...</div>
 
       <div v-else-if="error" class="py-10 text-center">
         <p class="font-semibold">No results / Error</p>
       </div>
 
-      <div v-else class="grid grid-cols-2 gap-4 sm:grid-cols-3 md:grid-cols-4">
+      <div v-else class="flex flex-col items-center justify-center md:flex-row md:flex-wrap gap-6">
         <NuxtLink
           v-for="character in characters"
           :key="character.id"
           :to="`/character/${character.id}`"
-          class="block overflow-hidden rounded-2xl border border-slate-200 bg-white transition hover:-translate-y-1 hover:shadow-md"
         >
           <CharacterCard :character="character" />
         </NuxtLink>

@@ -10,7 +10,7 @@ export default {
     './plugins/**/*.{js,ts}',
     './nuxt.config.{js,ts}',
   ],
-  safelist: ['bg-graphite'],
+  safelist: ['bg-graphite', 'border-charcoal'],
   theme: {
     extend: {
       colors: {
@@ -18,6 +18,7 @@ export default {
         obsidian: '#0E0E0E',
         'lime-apple': '#B2DF28',
         steel: '#3B3D3F',
+        charcoal: '#404244',
       },
     },
   },
