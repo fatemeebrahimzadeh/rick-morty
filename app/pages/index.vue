@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed } from 'vue'
+import { ref, computed, watch } from 'vue'
 
 type Character = {
   id: number
@@ -7,22 +7,44 @@ type Character = {
   image: string
 }
 
-type CharactersResponse = {
-  results: Character[]
+type Info = {
+  pages: number
 }
 
-const { data, pending, error } = await useFetch<CharactersResponse>(
-  'https://rickandmortyapi.com/api/character'
+type CharactersResponse = {
+  info: Info
+  results: Character[]
+}
+const page = ref(1)
+
+const { data, pending, error, refresh } = await useFetch<CharactersResponse>(
+  'https://rickandmortyapi.com/api/character',
+  {
+    query: computed(() => ({
+      page: page.value,
+    }))
+  }
 )
 
+watch([page], () => refresh())
+
 const characters = computed(() => data.value?.results ?? [])
+const pagesCount = computed(() => data.value?.info?.pages ?? 1)
+
+function next() {
+  if (page.value < pagesCount.value) page.value++
+}
+function prev() {
+  if (page.value > 1) page.value--
+}
 </script>
 
 <template>
-  <main class="min-h-screen p-4 md:p-8">
-    <header class="max-w-5xl mx-auto flex flex-col gap-3 md:flex-row md:items-center md:justify-between">
-      <h1 class="text-2xl font-bold">Rick & Morty Characters</h1>
-    </header>
+  <div class="min-h-screen flex flex-col">
+    <main class="flex-1 p-4 md:p-8">
+      <header class="max-w-5xl mx-auto flex flex-col gap-3 md:flex-row md:items-center md:justify-between">
+        <h1 class="text-2xl font-bold">Rick & Morty Characters</h1>
+      </header>
 
     <section class="max-w-5xl mx-auto mt-6">
       <div v-if="pending" class="py-10 text-center">Loading...</div>
@@ -44,7 +66,27 @@ const characters = computed(() => data.value?.results ?? [])
           </div>
         </NuxtLink>
       </div>
-
     </section>
-  </main>
+    </main>
+
+    <footer class="border-t py-4 text-center text-sm text-gray-500 flex items-center justify-center gap-3 mt-8">
+        <button
+          class="px-4 py-2 rounded-xl border disabled:opacity-40"
+          :disabled="page === 1"
+          @click="prev"
+        >
+          Prev
+        </button>
+
+        <span class="text-sm">Page {{ page }} / {{ pagesCount }}</span>
+
+        <button
+          class="px-4 py-2 rounded-xl border disabled:opacity-40"
+          :disabled="page === pagesCount"
+          @click="next"
+        >
+          Next
+        </button>
+    </footer>
+  </div>
 </template>
