@@ -1,21 +1,41 @@
 <script setup lang="ts">
+import { ref, watch } from 'vue'
 import type { CharacterSummary } from '~/types/rick-and-morty'
+import placeholderAvatar from '~/assets/images/placeholder-avatar.jpeg'
 
-defineProps<{
+const props = defineProps<{
   character: CharacterSummary
 }>()
+
+const imgSrc = ref(props.character.image || placeholderAvatar)
+
+watch(
+  () => props.character.image,
+  (value) => {
+    imgSrc.value = value || placeholderAvatar
+  }
+)
+
+function onImgError() {
+  imgSrc.value = placeholderAvatar
+}
 </script>
 
 <template>
   <article
     class="border-gcharcoal flex w-[328px] flex-col gap-4 overflow-hidden rounded-2xl border p-4 md:w-[384px]"
   >
-    <img
-      :src="character.image"
-      :alt="character.name"
-      class="w-full rounded-lg object-cover"
-      loading="lazy"
-    />
+    <div class="relative w-full overflow-hidden rounded-lg bg-charcoal aspect-[4/3]">
+      <img
+        :src="imgSrc"
+        :alt="character.name"
+        class="absolute inset-0 h-full w-full object-cover"
+        loading="lazy"
+        decoding="async"
+        fetchpriority="low"
+        @error="onImgError"
+      />
+    </div>
     <div class="space-y-1 p-3 text-white">
       <p class="line-clamp-1 font-bold">{{ character.name }}</p>
       <p v-if="character.status || character.species" class="flex items-center gap-2 text-sm">
