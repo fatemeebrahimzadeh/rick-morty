@@ -16,17 +16,30 @@ type CharactersResponse = {
   results: Character[]
 }
 const page = ref(1)
+const search = ref('')
 
-const { data, pending, error, refresh } = await useFetch<CharactersResponse>(
+const debouncedSearch = ref('')
+let debounceTimer: ReturnType<typeof setTimeout> | null = null
+
+watch(search, (searchValue) => {
+  if (debounceTimer) clearTimeout(debounceTimer)
+  debounceTimer = setTimeout(() => {
+    debouncedSearch.value = searchValue.trim()
+    page.value = 1
+  }, 400)
+})
+
+const { data, pending, error, refresh } = await useFetch(
   'https://rickandmortyapi.com/api/character',
   {
     query: computed(() => ({
       page: page.value,
+      name: debouncedSearch.value || undefined
     }))
   }
 )
 
-watch([page], () => refresh())
+watch([page, debouncedSearch], () => refresh())
 
 const characters = computed(() => data.value?.results ?? [])
 const pagesCount = computed(() => data.value?.info?.pages ?? 1)
@@ -44,6 +57,13 @@ function prev() {
     <main class="flex-1 p-4 md:p-8">
       <header class="max-w-5xl mx-auto flex flex-col gap-3 md:flex-row md:items-center md:justify-between">
         <h1 class="text-2xl font-bold">Rick & Morty Characters</h1>
+      
+        <input
+          v-model="search"
+          type="text"
+          placeholder="Search by name..."
+          class="w-full md:w-80 rounded-xl border px-4 py-2"
+        />
       </header>
 
     <section class="max-w-5xl mx-auto mt-6">
