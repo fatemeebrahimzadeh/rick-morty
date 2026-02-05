@@ -1,21 +1,26 @@
 <script setup lang="ts">
-const { page, search, characters, pagesCount, pending, error, next, prev } = useCharacters()
+const { page, search, characters, pagesCount, pending, error, next, prev, searchNow } = useCharacters()
 </script>
 
 <template>
   <NuxtLayout>
     <template #header-context>
-      <div class="flex flex-col gap-3 md:flex-row md:items-center md:justify-between">
-        <div>
-          <p class="text-xs font-semibold uppercase tracking-wide text-slate-500">Directory</p>
-          <h1 class="text-2xl font-bold">Rick &amp; Morty Characters</h1>
-        </div>
+      <div class="mx-auto h-20 md:max-w-[1608px] p-4 rounded-lg flex gap-4 bg-graphite">
         <input
           v-model="search"
           type="text"
-          placeholder="Search by name..."
-          class="w-full rounded-xl border border-slate-200 px-4 py-2 shadow-sm transition focus:border-slate-400 focus:outline-none md:w-80"
+          placeholder="Search for characters..."
+          class="w-full h-12 rounded-lg px-4 text-white outline-none transition bg-steel"
         />
+        <button
+          type="button"
+          class="flex h-12 w-12 md:w-auto py-3 px-4 items-center justify-center rounded bg-lime-apple transition hover:-translate-y-0.5 gap-2"
+          aria-label="Search characters"
+          @click="searchNow"
+        >
+          <IconsSearch class="h-5 w-5" />
+          <span class="hidden text-sm font-semibold text-obsidian md:inline-block">Search</span>
+        </button>
       </div>
     </template>
 

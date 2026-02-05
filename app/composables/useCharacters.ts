@@ -16,7 +16,7 @@ export function useCharacters() {
     debounceTimer = setTimeout(() => {
       debouncedSearch.value = value.trim()
       page.value = 1
-    }, 400)
+    }, 2000)
   })
 
   const { data, pending, error, refresh } = useFetch<CharactersResponse>(
@@ -34,6 +34,13 @@ export function useCharacters() {
   const characters = computed<CharacterSummary[]>(() => data.value?.results ?? [])
   const pagesCount = computed(() => data.value?.info?.pages ?? 1)
 
+  function searchNow() {
+    if (debounceTimer) clearTimeout(debounceTimer)
+    debouncedSearch.value = search.value.trim()
+    page.value = 1
+    refresh()
+  }
+
   function next() {
     if (page.value < pagesCount.value) page.value++
   }
@@ -49,6 +56,7 @@ export function useCharacters() {
     pagesCount,
     pending,
     error,
+    searchNow,
     next,
     prev,
   }

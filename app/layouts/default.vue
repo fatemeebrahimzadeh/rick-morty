@@ -1,27 +1,27 @@
+<script setup lang="ts">
+import logo from '~/assets/images/logo.svg'
+</script>
+
 <template>
-  <div class="flex min-h-screen flex-col bg-slate-50 text-slate-900">
-    <header class="border-b bg-white/80 backdrop-blur">
-      <div class="mx-auto flex max-w-5xl items-center justify-between gap-4 px-4 py-4 md:px-6">
-        <NuxtLink to="/" class="group flex items-center gap-3 font-semibold tracking-tight">
-          <span
-            class="rounded-lg bg-slate-900 px-2 py-1 text-xs font-bold uppercase leading-none text-white transition group-hover:-translate-y-0.5"
-          >
-            R&M
-          </span>
-          <span class="text-base md:text-lg">Rick &amp; Morty Atlas</span>
+  <div class="flex min-h-screen flex-col bg-graphite">
+    <header
+      class="sticky top-0 z-40 bg-gradient-to-r from-graphite/95 to-obsidian/95 md:px-[120px]"
+    >
+      <div
+        class="flex items-center justify-between py-3 px-4"
+      >
+        <NuxtLink to="/" class="group">
+          <img
+            :src="logo"
+            alt="Rick & Morty Atlas"
+            class="h-9 w-auto transition group-hover:-translate-y-0.5"
+          />
+          <span class="sr-only">Rick & Morty Atlas</span>
         </NuxtLink>
-
-        <nav class="flex items-center gap-3 text-sm font-medium text-slate-600">
-          <NuxtLink to="/" class="hover:text-slate-900">Characters</NuxtLink>
-        </nav>
-
-        <div class="flex items-center gap-3">
-          <slot name="header-cta" />
-        </div>
       </div>
 
-      <div v-if="$slots['header-context']" class="border-t bg-slate-50/80">
-        <div class="mx-auto max-w-5xl px-4 py-3 md:px-6">
+      <div v-if="$slots['header-context']">
+        <div class="mx-auto py-3 px-4">
           <slot name="header-context" />
         </div>
       </div>
