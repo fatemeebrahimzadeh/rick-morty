@@ -13,25 +13,19 @@ const character = computed(() => data.value)
 
 <template>
   <main class="min-h-screen p-4 md:p-8">
-    <div class="max-w-4xl mx-auto">
+    <div class="mx-auto max-w-4xl">
       <NuxtLink to="/" class="underline">← Back</NuxtLink>
 
       <div v-if="pending" class="py-10 text-center">Loading...</div>
 
       <div v-else-if="error" class="py-10 text-center">Not found</div>
 
-      <div v-else class="mt-6 grid md:grid-cols-2 gap-6">
-        <img
-          :src="character?.image"
-          :alt="character?.name"
-          class="w-full rounded-2xl border"
-        />
+      <div v-else class="mt-6 grid gap-6 md:grid-cols-2">
+        <img :src="character?.image" :alt="character?.name" class="w-full rounded-2xl border" />
 
         <div>
           <h1 class="text-2xl font-bold">{{ character?.name }}</h1>
-          <p class="mt-2 opacity-80">
-            {{ character?.status }} • {{ character?.species }}
-          </p>
+          <p class="mt-2 opacity-80">{{ character?.status }} • {{ character?.species }}</p>
 
           <div class="mt-6 space-y-2">
             <p><span class="font-semibold">Gender:</span> {{ character?.gender }}</p>

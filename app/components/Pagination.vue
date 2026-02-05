@@ -18,7 +18,7 @@ const isLast = computed(() => props.currentPage >= props.totalPages)
 <template>
   <nav class="flex items-center gap-4 text-sm text-gray-700 dark:text-gray-200">
     <button
-      class="px-4 py-2 rounded-xl border border-gray-300 dark:border-gray-700 disabled:opacity-40"
+      class="rounded-xl border border-gray-300 px-4 py-2 disabled:opacity-40 dark:border-gray-700"
       :disabled="isFirst"
       @click="emit('prev')"
     >
@@ -30,7 +30,7 @@ const isLast = computed(() => props.currentPage >= props.totalPages)
     </span>
 
     <button
-      class="px-4 py-2 rounded-xl border border-gray-300 dark:border-gray-700 disabled:opacity-40"
+      class="rounded-xl border border-gray-300 px-4 py-2 disabled:opacity-40 dark:border-gray-700"
       :disabled="isLast"
       @click="emit('next')"
     >

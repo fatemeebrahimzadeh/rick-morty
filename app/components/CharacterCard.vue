@@ -7,17 +7,20 @@ defineProps<{
 </script>
 
 <template>
-  <article class="bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-700 rounded-2xl shadow-sm overflow-hidden h-full">
+  <article
+    class="h-full overflow-hidden rounded-2xl border border-gray-200 bg-white shadow-sm dark:border-gray-700 dark:bg-gray-900"
+  >
     <img
       :src="character.image"
       :alt="character.name"
-      class="w-full h-40 object-cover"
+      class="h-40 w-full object-cover"
       loading="lazy"
     />
-    <div class="p-3 space-y-1">
-      <p class="font-semibold line-clamp-1">{{ character.name }}</p>
-      <p v-if="character.status || character.species" class="text-sm text-gray-500 line-clamp-1">
-        {{ character.status }}<span v-if="character.status && character.species"> • </span>{{ character.species }}
+    <div class="space-y-1 p-3">
+      <p class="line-clamp-1 font-semibold">{{ character.name }}</p>
+      <p v-if="character.status || character.species" class="line-clamp-1 text-sm text-gray-500">
+        {{ character.status }}<span v-if="character.status && character.species"> • </span
+        >{{ character.species }}
       </p>
     </div>
   </article>

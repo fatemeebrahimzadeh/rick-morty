@@ -23,10 +23,10 @@ export function useCharacters() {
     {
       query: computed(() => ({
         page: page.value,
-        name: debouncedSearch.value || undefined
+        name: debouncedSearch.value || undefined,
       })),
       watch: [page, debouncedSearch],
-      lazy: false
+      lazy: false,
     }
   )
 
@@ -49,6 +49,6 @@ export function useCharacters() {
     pending,
     error,
     next,
-    prev
+    prev,
   }
 }
