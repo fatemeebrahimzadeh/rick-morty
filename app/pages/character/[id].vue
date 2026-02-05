@@ -3,9 +3,10 @@ import type { CharacterDetail } from '~/types/rick-and-morty'
 
 const route = useRoute()
 const id = route.params.id as string
+const config = useRuntimeConfig()
 
 const { data, pending, error } = await useFetch<CharacterDetail>(
-  `https://rickandmortyapi.com/api/character/${id}`
+  `${config.public.apiBase}/character/${id}`
 )
 
 const character = computed(() => data.value)

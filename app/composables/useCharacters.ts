@@ -8,6 +8,7 @@ export function useCharacters() {
   const page = ref(1)
   const search = ref('')
   const debouncedSearch = ref('')
+  const config = useRuntimeConfig()
 
   let debounceTimer: ReturnType<typeof setTimeout> | null = null
   watch(search, (value) => {
@@ -19,7 +20,7 @@ export function useCharacters() {
   })
 
   const { data, pending, error, refresh } = useFetch<CharactersResponse>(
-    'https://rickandmortyapi.com/api/character',
+    `${config.public.apiBase}/character`,
     {
       query: computed(() => ({
         page: page.value,
