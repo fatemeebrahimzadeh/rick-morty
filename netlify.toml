@@ -1,6 +1,12 @@
 [build]
   command = "pnpm build"
   publish = ".output/public"
+  [build.environment]
+    NODE_VERSION = "20"
+    PNPM_VERSION = "9"
+    NITRO_PRESET = "netlify"
+    NUXT_TELEMETRY_DISABLED = "1"
+    NETLIFY_BUILD_DEBUG = "true"
 
 [functions]
   directory = ".output/server"
