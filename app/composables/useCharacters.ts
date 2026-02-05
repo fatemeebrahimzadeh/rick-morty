@@ -1,12 +1,68 @@
-import { ref } from 'vue'
+import { computed, ref, watch } from 'vue'
+
+type Character = {
+  id: number
+  name: string
+  image: string
+}
+
+type Info = {
+  pages: number
+}
+
+type CharactersResponse = {
+  info: Info
+  results: Character[]
+}
 
 /**
- * Minimal stub composable; replace with real API calls later.
+ * Handles characters fetching, search (debounced), and pagination state.
  */
 export function useCharacters() {
-  const characters = ref([])
-  const loading = ref(false)
-  const error = ref<Error | null>(null)
+  const page = ref(1)
+  const search = ref('')
+  const debouncedSearch = ref('')
 
-  return { characters, loading, error }
+  let debounceTimer: ReturnType<typeof setTimeout> | null = null
+  watch(search, (value) => {
+    if (debounceTimer) clearTimeout(debounceTimer)
+    debounceTimer = setTimeout(() => {
+      debouncedSearch.value = value.trim()
+      page.value = 1
+    }, 400)
+  })
+
+  const { data, pending, error, refresh } = useFetch<CharactersResponse>(
+    'https://rickandmortyapi.com/api/character',
+    {
+      query: computed(() => ({
+        page: page.value,
+        name: debouncedSearch.value || undefined
+      })),
+      watch: [page, debouncedSearch],
+      lazy: false
+    }
+  )
+
+  const characters = computed(() => data.value?.results ?? [])
+  const pagesCount = computed(() => data.value?.info?.pages ?? 1)
+
+  function next() {
+    if (page.value < pagesCount.value) page.value++
+  }
+
+  function prev() {
+    if (page.value > 1) page.value--
+  }
+
+  return {
+    page,
+    search,
+    characters,
+    pagesCount,
+    pending,
+    error,
+    next,
+    prev
+  }
 }
