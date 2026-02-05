@@ -19,6 +19,7 @@ export default {
         'lime-apple': '#B2DF28',
         steel: '#3B3D3F',
         charcoal: '#404244',
+        ash: '#989A9C',
       },
     },
   },

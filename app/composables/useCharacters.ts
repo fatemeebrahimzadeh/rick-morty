@@ -45,6 +45,11 @@ export function useCharacters() {
     if (page.value < pagesCount.value) page.value++
   }
 
+  function goToPage(target: number) {
+    const total = pagesCount.value || 1
+    page.value = Math.min(Math.max(1, target), total)
+  }
+
   function prev() {
     if (page.value > 1) page.value--
   }
@@ -58,6 +63,7 @@ export function useCharacters() {
     error,
     searchNow,
     next,
+    goToPage,
     prev,
   }
 }

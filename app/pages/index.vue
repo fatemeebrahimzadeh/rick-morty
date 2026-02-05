@@ -1,5 +1,5 @@
 <script setup lang="ts">
-const { page, search, characters, pagesCount, pending, error, next, prev, searchNow } = useCharacters()
+const { page, search, characters, pagesCount, pending, error, next, prev, goToPage, searchNow } = useCharacters()
 </script>
 
 <template>
@@ -24,7 +24,7 @@ const { page, search, characters, pagesCount, pending, error, next, prev, search
       </div>
     </template>
 
-    <section class="mx-auto py-8 md:px-[120px] md:py-16 md:p-8">
+    <section class="mx-auto py-8 md:px-[120px] md:py-16 md:p-8 md:pb-0">
       <div v-if="pending" class="py-10 text-center">Loading...</div>
 
       <div v-else-if="error" class="py-10 text-center">
@@ -43,8 +43,16 @@ const { page, search, characters, pagesCount, pending, error, next, prev, search
     </section>
 
     <template #footer-context>
-      <div class="flex items-center justify-center">
-        <Pagination :current-page="page" :total-pages="pagesCount" @prev="prev" @next="next" />
+      <div class="flex items-center justify-center p-8 pt-0 md:pt-4">
+        <Pagination
+          :current-page="page"
+          :total-pages="pagesCount"
+          @first="goToPage(1)"
+          @prev="prev"
+          @go="goToPage"
+          @next="next"
+          @last="goToPage(pagesCount)"
+        />
       </div>
     </template>
   </NuxtLayout>
