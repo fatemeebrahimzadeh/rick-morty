@@ -1,20 +1,10 @@
 <script setup lang="ts">
+import type { CharacterDetail } from '~/types/rick-and-morty'
+
 const route = useRoute()
 const id = route.params.id as string
 
-type LocationRef = { name: string }
-type Character = {
-  id: number
-  name: string
-  status: string
-  species: string
-  gender: string
-  image: string
-  location: LocationRef
-  origin: LocationRef
-}
-
-const { data, pending, error } = await useFetch<Character>(
+const { data, pending, error } = await useFetch<CharacterDetail>(
   `https://rickandmortyapi.com/api/character/${id}`
 )
 

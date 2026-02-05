@@ -1,14 +1,8 @@
 <script setup lang="ts">
-type Character = {
-  id: number
-  name: string
-  image: string
-  status?: string
-  species?: string
-}
+import type { CharacterSummary } from '~/types/rick-and-morty'
 
 defineProps<{
-  character: Character
+  character: CharacterSummary
 }>()
 </script>
 

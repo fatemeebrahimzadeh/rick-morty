@@ -1,19 +1,5 @@
 import { computed, ref, watch } from 'vue'
-
-type Character = {
-  id: number
-  name: string
-  image: string
-}
-
-type Info = {
-  pages: number
-}
-
-type CharactersResponse = {
-  info: Info
-  results: Character[]
-}
+import type { CharacterSummary, CharactersResponse } from '~/types/rick-and-morty'
 
 /**
  * Handles characters fetching, search (debounced), and pagination state.
@@ -44,7 +30,7 @@ export function useCharacters() {
     }
   )
 
-  const characters = computed(() => data.value?.results ?? [])
+  const characters = computed<CharacterSummary[]>(() => data.value?.results ?? [])
   const pagesCount = computed(() => data.value?.info?.pages ?? 1)
 
   function next() {
