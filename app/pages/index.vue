@@ -29,7 +29,7 @@ watch(search, (searchValue) => {
   }, 400)
 })
 
-const { data, pending, error, refresh } = await useFetch(
+const { data, pending, error, refresh } = await useFetch<CharactersResponse>(
   'https://rickandmortyapi.com/api/character',
   {
     query: computed(() => ({
