@@ -29,7 +29,10 @@ const character = computed(() => data.value)
 
       <div v-else-if="error" class="py-10 text-center">Not found</div>
 
-      <div v-else class="grid gap-6 rounded-2xl border border-slate-200 bg-white p-6 shadow-sm md:grid-cols-2">
+      <div
+        v-else
+        class="grid gap-6 rounded-2xl border border-slate-200 bg-white p-6 shadow-sm md:grid-cols-2"
+      >
         <img :src="character?.image" :alt="character?.name" class="w-full rounded-2xl border" />
 
         <div>

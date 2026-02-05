@@ -7,9 +7,7 @@ import logo from '~/assets/images/logo.svg'
     <header
       class="sticky top-0 z-40 bg-gradient-to-r from-graphite/95 to-obsidian/95 md:px-[120px]"
     >
-      <div
-        class="flex items-center justify-between py-3 px-4"
-      >
+      <div class="flex items-center justify-between px-4 py-3">
         <NuxtLink to="/" class="group">
           <img
             :src="logo"
@@ -21,7 +19,7 @@ import logo from '~/assets/images/logo.svg'
       </div>
 
       <div v-if="$slots['header-context']">
-        <div class="mx-auto py-3 px-4">
+        <div class="mx-auto px-4 py-3">
           <slot name="header-context" />
         </div>
       </div>

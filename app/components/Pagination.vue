@@ -57,7 +57,7 @@ const pages = computed<(number | 'ellipsis')[]>(() => {
 </script>
 
 <template>
-  <nav class="flex items-center gap-2 text-sm text-ash max-w-[328px] md:max-w-auto">
+  <nav class="md:max-w-auto flex max-w-[328px] items-center gap-2 text-sm text-ash">
     <button
       class="flex h-8 w-8 items-center justify-center rounded-full text-xs disabled:opacity-40"
       :disabled="isFirst"
@@ -80,7 +80,9 @@ const pages = computed<(number | 'ellipsis')[]>(() => {
       <button
         v-else
         class="flex h-8 min-w-[32px] items-center justify-center rounded-full px-2 text-xs font-semibold transition"
-        :class="item === currentPage ? 'bg-lime-apple text-obsidian' : 'text-slate-200 hover:bg-slate-700'"
+        :class="
+          item === currentPage ? 'bg-lime-apple text-obsidian' : 'text-slate-200 hover:bg-slate-700'
+        "
         @click="emit('go', item)"
       >
         {{ item }}
