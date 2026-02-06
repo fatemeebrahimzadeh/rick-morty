@@ -20,6 +20,8 @@ export default {
         steel: '#3B3D3F',
         charcoal: '#404244',
         ash: '#989A9C',
+        'cyan-glow': '#0AD7F10A',
+        'cyan-brand': '#0AD7F1',
       },
     },
   },
