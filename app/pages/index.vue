@@ -6,16 +6,18 @@ const { page, search, characters, pagesCount, pending, error, next, prev, goToPa
 <template>
   <NuxtLayout>
     <template #header-context>
-      <div class="mx-auto flex h-20 gap-4 rounded-lg bg-graphite p-4 md:max-w-[1608px]">
+      <div
+        class="mx-auto flex h-20 items-center gap-4 rounded-xl bg-obsidian/80 p-4 shadow-lg shadow-black/20 backdrop-blur md:max-w-[1608px]"
+      >
         <input
           v-model="search"
           type="text"
           placeholder="Search for characters..."
-          class="h-12 w-full rounded-lg bg-steel px-4 text-white outline-none transition"
+          class="h-12 w-full rounded-lg bg-steel/80 px-4 text-sm text-white outline-none ring-1 ring-charcoal transition placeholder:text-ash focus:ring-2 focus:ring-lime-apple"
         />
         <button
           type="button"
-          class="flex h-12 w-12 items-center justify-center gap-2 rounded bg-lime-apple px-4 py-3 transition hover:-translate-y-0.5 md:w-auto"
+          class="flex h-12 w-12 items-center justify-center gap-2 rounded-lg bg-lime-apple px-4 py-3 text-obsidian transition hover:-translate-y-0.5 md:w-auto"
           aria-label="Search characters"
           @click="searchNow"
         >
@@ -26,9 +28,9 @@ const { page, search, characters, pagesCount, pending, error, next, prev, goToPa
     </template>
 
     <section class="mx-auto py-8 md:p-8 md:px-[120px] md:py-16 md:pb-0">
-      <div v-if="pending" class="py-10 text-center">Loading...</div>
+      <div v-if="pending" class="py-10 text-center text-ash">Loading...</div>
 
-      <div v-else-if="error" class="py-10 text-center">
+      <div v-else-if="error" class="py-10 text-center text-ash">
         <p class="font-semibold">No results / Error</p>
       </div>
 

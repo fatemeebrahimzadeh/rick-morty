@@ -3,11 +3,11 @@ import logo from '~/assets/images/logo.svg'
 </script>
 
 <template>
-  <div class="flex min-h-screen flex-col bg-graphite">
+  <div class="flex min-h-screen flex-col bg-gradient-to-b from-graphite via-obsidian to-graphite text-white">
     <header
-      class="sticky top-0 z-40 bg-gradient-to-r from-graphite/95 to-obsidian/95 md:px-[120px]"
+      class="sticky top-0 z-40 border-b border-charcoal/70 bg-gradient-to-r from-graphite/95 to-obsidian/95 backdrop-blur md:px-[120px]"
     >
-      <div class="flex items-center justify-between px-4 py-3">
+      <div class="flex items-center justify-between px-4 py-3 md:py-4">
         <NuxtLink to="/" class="group">
           <img
             :src="logo"
@@ -19,7 +19,7 @@ import logo from '~/assets/images/logo.svg'
       </div>
 
       <div v-if="$slots['header-context']">
-        <div class="mx-auto px-4 py-3">
+        <div class="mx-auto px-4 pb-4">
           <slot name="header-context" />
         </div>
       </div>
