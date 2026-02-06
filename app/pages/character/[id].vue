@@ -41,9 +41,7 @@ const {
   { immediate: true }
 )
 
-const locations = computed<LocationDetail[]>(() =>
-  locationData.value ? [locationData.value] : []
-)
+const locations = computed<LocationDetail[]>(() => (locationData.value ? [locationData.value] : []))
 
 function formatDate(dateStr?: string) {
   if (!dateStr) return 'Unknown'
@@ -56,11 +54,11 @@ function formatDate(dateStr?: string) {
 <template>
   <NuxtLayout>
     <template #header-context>
-      <div class="flex flex-col md:flex-row gap-4 md:gap-20 text-white">
+      <div class="flex flex-col gap-4 text-white md:flex-row md:gap-20">
         <img
           :src="character?.image"
           :alt="character?.name"
-          class="h-20 w-20 md:h-[240px] md:w-[240px] rounded-lg border border-steel object-cover"
+          class="h-20 w-20 rounded-lg border border-steel object-cover md:h-[240px] md:w-[240px]"
         />
         <div class="flex flex-col md:justify-center">
           <h1 class="text-2xl font-bold">{{ character?.name }}</h1>
@@ -99,15 +97,9 @@ function formatDate(dateStr?: string) {
             <h2 class="text-2xl font-bold">Episodes</h2>
           </div>
 
-          <div v-if="episodesPending">
-            Loading episodes...
-          </div>
-          <div v-else-if="episodesError">
-            Could not load episodes.
-          </div>
-          <div v-else-if="!episodes.length">
-            No episode data available.
-          </div>
+          <div v-if="episodesPending">Loading episodes...</div>
+          <div v-else-if="episodesError">Could not load episodes.</div>
+          <div v-else-if="!episodes.length">No episode data available.</div>
           <div v-else class="grid gap-4 md:grid-cols-4">
             <article
               v-for="episode in episodes"
@@ -127,15 +119,9 @@ function formatDate(dateStr?: string) {
             <h2 class="text-2xl font-bold">Locations</h2>
           </div>
 
-          <div v-if="locationPending">
-            Loading locations...
-          </div>
-          <div v-else-if="locationError">
-            Could not load locations.
-          </div>
-          <div v-else-if="!locations.length">
-            No location data available.
-          </div>
+          <div v-if="locationPending">Loading locations...</div>
+          <div v-else-if="locationError">Could not load locations.</div>
+          <div v-else-if="!locations.length">No location data available.</div>
           <div v-else class="grid gap-4 md:grid-cols-4">
             <article
               v-for="location in locations"

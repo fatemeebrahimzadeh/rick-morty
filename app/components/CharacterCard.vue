@@ -25,7 +25,7 @@ function onImgError() {
   <article
     class="border-gcharcoal flex w-[328px] flex-col gap-4 overflow-hidden rounded-2xl border p-4 md:w-[384px]"
   >
-    <div class="relative w-full overflow-hidden rounded-lg bg-charcoal aspect-[4/3]">
+    <div class="relative aspect-[4/3] w-full overflow-hidden rounded-lg bg-charcoal">
       <img
         :src="imgSrc"
         :alt="character.name"
